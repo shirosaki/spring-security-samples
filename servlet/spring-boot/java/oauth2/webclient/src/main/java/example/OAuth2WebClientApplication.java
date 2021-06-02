@@ -18,6 +18,8 @@ package example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.reactive.ReactiveOAuth2ClientAutoConfiguration;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  * An OAuth web application that demonstrates integration with WebClient.
@@ -26,7 +28,11 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.reactive.Re
  */
 // FIXME: Work around https://github.com/spring-projects/spring-boot/issues/14463
 @SpringBootApplication(exclude = ReactiveOAuth2ClientAutoConfiguration.class)
-public class OAuth2WebClientApplication {
+public class OAuth2WebClientApplication extends SpringBootServletInitializer {
+
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(OAuth2WebClientApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(OAuth2WebClientApplication.class, args);
